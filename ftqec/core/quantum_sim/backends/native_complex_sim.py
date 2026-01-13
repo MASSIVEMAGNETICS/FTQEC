@@ -24,8 +24,9 @@ class NativeComplexSim:
         Args:
             num_qubits: Number of qubits in the system
         """
+        import warnings
         if num_qubits > 20:
-            print(f"Warning: {num_qubits} qubits may require significant memory")
+            warnings.warn(f"{num_qubits} qubits may require significant memory", UserWarning)
         
         self.num_qubits = num_qubits
         self.dim = 2 ** num_qubits

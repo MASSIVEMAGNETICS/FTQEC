@@ -36,7 +36,8 @@ class CirqBackend:
             self.simulator = cirq.Simulator()
             
         except ImportError:
-            print("Warning: Cirq not available, using fallback native simulation")
+            import warnings
+            warnings.warn("Cirq not available, using fallback native simulation", UserWarning)
             from ftqec.core.quantum_sim.backends.native_complex_sim import NativeComplexSim
             self._fallback = NativeComplexSim(num_qubits)
     

@@ -199,7 +199,7 @@ def demonstrate_backend_comparison():
             probs = sim.get_probabilities()
             print(f"   ✓ Basis states: {len(probs)}")
             
-        except Exception as e:
+        except (ImportError, ValueError, RuntimeError) as e:
             print(f"   ✗ Error: {e}")
     
     print("\n" + "=" * 70)

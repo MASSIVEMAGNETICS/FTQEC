@@ -174,13 +174,13 @@ class FractalSoulCore:
     
     def _embed_thought(self, thought: str) -> np.ndarray:
         """Create vector embedding for thought."""
-        # Simple hash-based embedding
+        # Simple hash-based embedding using local random state
         hash_val = hash(thought)
         size = 64
         
-        # Generate pseudo-random embedding
-        np.random.seed(hash_val % (2**31))
-        embedding = np.random.randn(size)
+        # Generate pseudo-random embedding with local random state
+        rng = np.random.RandomState(hash_val % (2**31))
+        embedding = rng.randn(size)
         embedding = embedding / np.linalg.norm(embedding)
         
         return embedding

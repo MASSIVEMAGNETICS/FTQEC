@@ -214,9 +214,11 @@ class FractalExecutor:
             context.record_quantum_op()
             self.total_quantum_ops += 1
             
-        except Exception as e:
+        except (AttributeError, KeyError) as e:
             # Graceful degradation if quantum operations fail
-            pass
+            # Log the error for debugging but continue processing
+            import warnings
+            warnings.warn(f"Quantum processing failed: {e}", UserWarning)
         
         return context
     

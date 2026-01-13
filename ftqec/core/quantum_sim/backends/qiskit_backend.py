@@ -39,7 +39,8 @@ class QiskitBackend:
             self.simulator = AerSimulator(method='statevector')
             
         except ImportError:
-            print("Warning: Qiskit not available, using fallback native simulation")
+            import warnings
+            warnings.warn("Qiskit not available, using fallback native simulation", UserWarning)
             from ftqec.core.quantum_sim.backends.native_complex_sim import NativeComplexSim
             self._fallback = NativeComplexSim(num_qubits)
     

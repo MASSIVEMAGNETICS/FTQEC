@@ -32,8 +32,9 @@ class QuantumSimulator:
             num_qubits: Number of qubits (3-5 recommended)
             fractal_depth: Depth of fractal decomposition
         """
+        import warnings
         if num_qubits < 3 or num_qubits > 5:
-            print(f"Warning: This simulator is optimized for 3-5 qubits. Using {num_qubits} qubits.")
+            warnings.warn(f"This simulator is optimized for 3-5 qubits. Using {num_qubits} qubits.", UserWarning)
         
         self.num_qubits = num_qubits
         self.engine = FractalStateEngine(num_qubits, fractal_depth)
@@ -291,12 +292,6 @@ class QuantumSimulator:
                     output_idx |= (out_bit_q2 << (self.num_qubits - 1 - q2))
                     
                     full_gate[output_idx, i] = gate[j, gate_input_idx]
-        
-        # Re-normalize to fix any numerical errors
-        for col in range(dim):
-            norm = np.linalg.norm(full_gate[:, col])
-            if norm > 1e-10:
-                full_gate[:, col] /= norm
         
         return full_gate
     
